@@ -1,0 +1,7 @@
+{
+  "name": "FitCheck AI - Virtual Try-On",
+  "description": "An AI-powered fashion assistant for virtual try-ons and outfit visualizations using Gemini 2.5 Flash Image.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

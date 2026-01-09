@@ -28,44 +28,57 @@ const Footer: React.FC<FooterProps> = ({ user, onStart }) => {
   };
 
   return (
-    <div className="w-full">
-      {/* SECTION: FOOTER CTA */}
-      <section className="bg-[#0A0B1E] py-24 md:py-40 px-6 text-center">
-         <div className="max-w-[1280px] mx-auto">
-            <h2 className="text-white text-3xl sm:text-4xl md:text-[58px] font-[700] leading-tight md:leading-[69px] mb-4">Ready to try on your perfect look?</h2>
-            <p className="text-white text-3xl sm:text-4xl md:text-[58px] font-[300] leading-tight md:leading-[69px] mb-12 md:mb-20 opacity-80">It’s time to experience TryOnYourself today!</p>
-            <button 
-              onClick={handleStartClick}
-              className="bg-white text-[#0A0B1E] text-2xl md:text-[38px] font-[700] px-12 md:px-24 py-6 md:py-10 rounded-[30px] md:rounded-[56px] hover:scale-105 transition-all shadow-2xl active:scale-95 w-full sm:w-auto"
-            >
-              Get started free
-            </button>
-         </div>
-      </section>
-
-      {/* ACTUAL FOOTER */}
-      <footer className="bg-[#0A0B1E] pt-16 md:pt-24 pb-12 md:pb-16 px-6">
-         <div className="max-w-[1253px] mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 md:gap-16">
-            <div className="col-span-2 lg:col-span-2 space-y-4 md:space-y-6">
-               <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 md:w-5 md:h-5 butter-yellow rounded border border-white"></div>
-                  <span className="text-white font-black text-xl md:text-2xl tracking-tighter">tryonyourself</span>
-               </div>
-               <p className="text-[#E6E7E8] opacity-60 text-[10px] md:text-[12px] font-[300] tracking-wider uppercase">© 2024 TryOnYourself</p>
+    <footer className="section-container border-t-2 border-black/10 bg-white/40 backdrop-blur-xl pt-16 pb-12 mt-20">
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+          <div className="flex flex-col gap-6">
+            <div className="flex items-center gap-2 text-black">
+              <div className="size-8 text-black">
+                <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
+                </svg>
+              </div>
+              <h3 className="font-black text-xl">AI Outfit Generator</h3>
             </div>
-            {["Site", "Support", "Social"].map((cat) => (
-               <div key={cat} className="space-y-4 md:space-y-6">
-                  <h4 className="text-white text-[10px] md:text-[11px] font-[400] uppercase tracking-wider">{cat}</h4>
-                  <ul className="space-y-3 md:space-y-4">
-                     {cat === "Site" && ["Frontpage", "Style app", "Wardrobe", "Pricing", "Lookbook"].map(link => <li key={link} className="text-white/70 hover:text-white cursor-pointer text-[12px] transition-colors">{link}</li>)}
-                     {cat === "Support" && ["Help Pages", "Terms", "Privacy", "GDPR", "Security"].map(link => <li key={link} className="text-white/70 hover:text-white cursor-pointer text-[12px] transition-colors">{link}</li>)}
-                     {cat === "Social" && ["Twitter", "Facebook", "Linkedin", "Instagram"].map(link => <li key={link} className="text-white/70 hover:text-white cursor-pointer text-[12px] transition-colors">{link}</li>)}
-                  </ul>
-               </div>
-            ))}
-         </div>
-      </footer>
-    </div>
+            <p className="text-sm font-bold text-black/60 max-w-xs leading-relaxed">
+              Revolutionizing how you decide what to wear. Your virtual fitting room, available 24/7.
+            </p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4 className="font-black text-black">Product</h4>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">Features</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#pricing">Pricing</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">For Brands</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">API</a>
+          </div>
+          <div className="flex flex-col gap-4">
+            <h4 className="font-black text-black">Company</h4>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">About Us</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">Blog</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">Careers</a>
+            <a className="text-sm font-bold text-black/60 hover:text-black transition-colors" href="#">Contact</a>
+          </div>
+          <div className="flex flex-col gap-6">
+            <h4 className="font-black text-black">Follow Us</h4>
+            <div className="flex gap-4">
+              <a className="size-12 rounded-2xl bg-white border-2 border-black flex items-center justify-center hover:bg-primary transition-all shadow-playful" href="#">
+                <svg className="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 5.8a8.49 8.49 0 0 1-2.36.64 4.13 4.13 0 0 0 1.81-2.27 8.21 8.21 0 0 1-2.61 1 4.1 4.1 0 0 0-7 3.74 11.64 11.64 0 0 1-8.45-4.29 4.16 4.16 0 0 0 1.27 5.48 4.09 4.09 0 0 1-1.87-.52v.05a4.1 4.1 0 0 0 3.3 4 4.09 4.09 0 0 1-1.85.07 4.1 4.1 0 0 0 3.83 2.85A8.23 8.23 0 0 1 2 20.08 11.58 11.58 0 0 0 8.29 21.75c7.55 0 11.67-6.26 11.67-11.67v-.53a8.33 8.33 0 0 0 2.04-2.12z"></path></svg>
+              </a>
+              <a className="size-12 rounded-2xl bg-white border-2 border-black flex items-center justify-center hover:bg-primary transition-all shadow-playful" href="#">
+                <svg className="size-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 3.25.15 4.77 1.69 4.92 4.92.06 1.27.07 1.64.07 4.85s-.01 3.58-.07 4.85c-.15 3.23-1.66 4.77-4.92 4.92-1.27.06-1.64.07-4.85.07s-3.58-.01-4.85-.07c-3.26-.15-4.77-1.7-4.92-4.92-.06-1.27-.07-1.64-.07-4.85s.01-3.58.07-4.85C2.38 3.92 3.9 2.38 7.15 2.23c1.27-.06 1.64-.07 4.85-.07zM12 0C8.74 0 8.33.01 7.05.07c-4.27.2-6.78 2.71-6.98 6.98C.01 8.33 0 8.74 0 12c0 3.26.01 3.67.07 4.95.2 4.27 2.71 6.78 6.98 6.98 1.28.06 1.69.07 4.95.07 3.26 0 3.67-.01 4.95-.07 4.27-.2 6.78-2.71 6.98-6.98.06-1.28.07-1.69.07-4.95 0-3.26-.01-3.67-.07-4.95-.2-4.27-2.71-6.78-6.98-6.98C15.67.01 15.26 0 12 0z"></path><path d="M12 5.84c-3.4 0-6.16 2.76-6.16 6.16s2.76 6.16 6.16 6.16 6.16-2.76 6.16-6.16-2.76-6.16-6.16-6.16zm0 10.16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"></path><circle cx="18.41" cy="5.59" r="1.44"></circle></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-between pt-8 border-t-2 border-black/5 gap-4">
+          <p className="text-sm font-bold text-black/40">© 2024 AI Outfit Generator. All rights reserved.</p>
+          <div className="flex gap-8">
+            <a className="text-sm font-bold text-black/40 hover:text-black" href="#">Privacy Policy</a>
+            <a className="text-sm font-bold text-black/40 hover:text-black" href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 };
 

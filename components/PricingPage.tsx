@@ -15,7 +15,7 @@ const PricingPage: React.FC<PricingPageProps> = ({ user, onStart }) => {
   }, []);
 
   return (
-    <div className="w-full pt-32 flex flex-col items-center">
+    <div className="w-full pt-20 sm:pt-24 md:pt-32 flex flex-col items-center">
       <Pricing user={user} onStart={onStart} />
       <Footer user={user} onStart={onStart} />
     </div>

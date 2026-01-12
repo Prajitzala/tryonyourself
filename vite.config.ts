@@ -18,6 +18,32 @@ export default defineConfig(({ mode }) => {
         alias: {
           '@': path.resolve(__dirname, '.'),
         }
-      }
+      },
+      build: {
+        // Enable code splitting
+        rollupOptions: {
+          output: {
+            manualChunks: {
+              'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+              'supabase-vendor': ['@supabase/supabase-js'],
+              'gemini-vendor': ['@google/genai'],
+            },
+          },
+        },
+        // Optimize chunk size
+        chunkSizeWarningLimit: 1000,
+        // Enable minification (esbuild is faster than terser)
+        minify: 'esbuild',
+        // Remove console.logs in production
+        ...(mode === 'production' && {
+          esbuild: {
+            drop: ['console', 'debugger'],
+          },
+        }),
+      },
+      // Optimize dependencies
+      optimizeDeps: {
+        include: ['react', 'react-dom', 'react-router-dom'],
+      },
     };
 });

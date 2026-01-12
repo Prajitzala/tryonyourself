@@ -8,7 +8,14 @@ if (!supabaseUrl || !supabaseAnonKey) {
   console.warn('Supabase credentials missing. Please check your .env file.');
 }
 
-export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '');
+export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '', {
+  auth: {
+    storage: typeof window !== 'undefined' ? window.sessionStorage : undefined,
+    autoRefreshToken: true,
+    persistSession: true,
+    detectSessionInUrl: true
+  }
+});
 
 export const saveOutfit = async (imageUrl: string, userId: string) => {
   const { data, error } = await supabase
@@ -30,12 +37,13 @@ export const saveOutfit = async (imageUrl: string, userId: string) => {
   return data;
 };
 
-export const getOutfits = async (userId: string) => {
+export const getOutfits = async (userId: string, limit: number = 50) => {
   const { data, error } = await supabase
     .from('outfits')
     .select('*')
     .eq('user_id', userId)
-    .order('created_at', { ascending: false });
+    .order('created_at', { ascending: false })
+    .limit(limit);
 
   if (error) {
     console.error('Error fetching outfits:', error);
@@ -61,6 +69,9 @@ export const signInWithGoogle = async () => {
     provider: 'google',
     options: {
       redirectTo: window.location.origin,
+      queryParams: {
+        prompt: 'select_account', // Force account selection screen
+      },
     },
   });
   if (error) console.error('Error signing in with Google:', error.message);

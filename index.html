@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>TryOnYourself - Virtual Try-On</title>
+    <title>Tryonyourself - Virtual Try-On</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -72,15 +72,15 @@
 
         @layer components {
           .playful-btn {
-            @apply bg-primary text-black font-bold px-6 py-3 rounded-full border-2 border-black shadow-playful hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all;
+            @apply bg-primary text-black font-bold px-4 sm:px-6 py-2 sm:py-3 rounded-full border-2 border-black shadow-playful hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all;
           }
 
           .pricing-btn {
-            @apply font-black text-sm px-8 py-4 rounded-2xl border-2 border-black shadow-playful hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all w-full;
+            @apply font-black text-xs sm:text-sm px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-black shadow-playful hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_#000] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all w-full;
           }
 
           .pricing-card {
-            @apply bg-white border-2 border-black rounded-[2.5rem] p-10 flex flex-col gap-8 shadow-pricing-card transition-transform hover:-translate-y-2;
+            @apply bg-white border-2 border-black rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] p-6 sm:p-8 md:p-10 flex flex-col gap-6 sm:gap-8 shadow-pricing-card transition-transform hover:-translate-y-2;
           }
 
           .section-container {

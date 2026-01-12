@@ -53,40 +53,38 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
   return (
     <>
       <header className="sticky top-0 z-50 w-full border-b border-black/5 bg-white/40 backdrop-blur-xl">
-        <div className="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto w-full">
+        <div className="flex items-center justify-between px-3 sm:px-4 md:px-6 py-3 sm:py-4 max-w-7xl mx-auto w-full">
           <div 
-            className="flex items-center gap-3 cursor-pointer group shrink-0"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer group shrink-0"
             onClick={() => { navigate('/'); setMobileMenuOpen(false); }}
           >
-            <div className="size-8 text-black">
+            <div className="size-6 sm:size-7 md:size-8 text-black">
               <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"></path>
               </svg>
             </div>
-            <h2 className="text-lg font-bold tracking-tight">AI Outfit Generator</h2>
+            <h2 className="text-base sm:text-lg font-bold tracking-tight hidden sm:block">Tryonyourself</h2>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            <button onClick={() => navigate('/')} className="text-sm font-semibold hover:text-purple-600 transition-colors">Features</button>
-            <button onClick={handlePricingClick} className="text-sm font-semibold hover:text-purple-600 transition-colors">Pricing</button>
-            {user && (
+          {user && (
+            <div className="hidden md:flex items-center gap-8">
               <button onClick={handleWardrobeClick} className="text-sm font-semibold hover:text-purple-600 transition-colors">Wardrobe</button>
-            )}
-          </div>
+            </div>
+          )}
 
-          <div className="flex items-center gap-4">
-            {user ? (
-              <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            {user && (
+              <div className="hidden md:flex items-center gap-3 lg:gap-4">
                 <div className="flex items-center gap-2">
                   {user.user_metadata.avatar_url ? (
                     <img 
                       src={user.user_metadata.avatar_url} 
                       alt="Profile" 
-                      className="w-8 h-8 rounded-full border-2 border-black"
+                      className="w-7 h-7 lg:w-8 lg:h-8 rounded-full border-2 border-black"
                     />
                   ) : (
-                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-[10px] font-bold border-2 border-black">
+                    <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-primary flex items-center justify-center text-[9px] lg:text-[10px] font-bold border-2 border-black">
                       {user.email?.charAt(0)}
                     </div>
                   )}
@@ -101,29 +99,30 @@ const Navigation: React.FC<NavigationProps> = ({ user }) => {
                   Logout
                 </button>
               </div>
-            ) : (
-              <button 
-                onClick={() => signInWithGoogle()}
-                className="text-sm font-semibold hover:text-purple-600 transition-colors"
-              >
-                Sign In
-              </button>
             )}
 
             <button 
-              onClick={handleTryFreeClick}
-              className="playful-btn text-sm px-5 py-2"
+              onClick={handlePricingClick}
+              className="hidden sm:block text-xs sm:text-sm font-semibold hover:text-purple-600 transition-colors"
             >
-              {user ? 'Go to Room' : 'Sign Up'}
+              Pricing
             </button>
 
             <button 
-              className="md:hidden size-10 flex flex-col items-center justify-center gap-1.5"
+              onClick={handleTryFreeClick}
+              className="playful-btn text-xs sm:text-sm px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 border-2"
+            >
+              <span className="hidden sm:inline">{user ? 'Go to Room' : 'Sign Up'}</span>
+              <span className="sm:hidden">{user ? 'Room' : 'Sign Up'}</span>
+            </button>
+
+            <button 
+              className="md:hidden size-8 sm:size-10 flex flex-col items-center justify-center gap-1 sm:gap-1.5"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              <div className={`w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
-              <div className={`w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></div>
-              <div className={`w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
+              <div className={`w-5 sm:w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></div>
+              <div className={`w-5 sm:w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? 'opacity-0' : ''}`}></div>
+              <div className={`w-5 sm:w-6 h-0.5 bg-black transition-all ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`}></div>
             </button>
           </div>
         </div>

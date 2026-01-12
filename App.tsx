@@ -1,13 +1,22 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import LandingPage from './components/LandingPage';
-import GeneratorPage from './components/GeneratorPage';
-import WardrobePage from './components/WardrobePage';
 import Navigation from './components/Navigation';
-import PricingPage from './components/PricingPage';
 import { supabase } from './services/supabaseClient';
 import { User } from '@supabase/supabase-js';
+
+// Lazy load components for code splitting
+const LandingPage = lazy(() => import('./components/LandingPage'));
+const GeneratorPage = lazy(() => import('./components/GeneratorPage'));
+const WardrobePage = lazy(() => import('./components/WardrobePage'));
+const PricingPage = lazy(() => import('./components/PricingPage'));
+
+// Loading fallback component
+const LoadingFallback: React.FC = () => (
+  <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="w-16 h-16 border-[6px] border-black border-t-[#FFFD63] rounded-full animate-spin" />
+  </div>
+);
 
 // Protected Route Component
 const ProtectedRoute: React.FC<{ children: React.ReactNode; user: User | null }> = ({ children, user }) => {
@@ -25,13 +34,19 @@ const AppContent: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
+    let mounted = true;
+    
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
+      if (mounted) {
+        setUser(session?.user ?? null);
+      }
     });
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (!mounted) return;
+      
       const newUser = session?.user ?? null;
       setUser(newUser);
       
@@ -46,10 +61,13 @@ const AppContent: React.FC = () => {
       }
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [navigate, location]);
 
-  const handleStartGenerator = () => {
+  const handleStartGenerator = useCallback(() => {
     if (!user) {
       // Store intended destination in location state
       navigate('/', { state: { from: '/generator' } });
@@ -57,42 +75,44 @@ const AppContent: React.FC = () => {
     } else {
       navigate('/generator');
     }
-  };
+  }, [user, navigate]);
 
   return (
     <div className="min-h-screen">
       <Navigation user={user} />
-      <Routes>
-        <Route 
-          path="/" 
-          element={<LandingPage onStart={handleStartGenerator} user={user} />} 
-        />
-        <Route 
-          path="/generator" 
-          element={
-            <ProtectedRoute user={user}>
-              <GeneratorPage 
-                user={user} 
-                persistedPerson={persistedPerson}
-                setPersistedPerson={setPersistedPerson}
-              />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/wardrobe" 
-          element={
-            <ProtectedRoute user={user}>
-              <WardrobePage user={user} />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/pricing" 
-          element={<PricingPage user={user} onStart={handleStartGenerator} />} 
-        />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Suspense fallback={<LoadingFallback />}>
+        <Routes>
+          <Route 
+            path="/" 
+            element={<LandingPage onStart={handleStartGenerator} user={user} />} 
+          />
+          <Route 
+            path="/generator" 
+            element={
+              <ProtectedRoute user={user}>
+                <GeneratorPage 
+                  user={user} 
+                  persistedPerson={persistedPerson}
+                  setPersistedPerson={setPersistedPerson}
+                />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/wardrobe" 
+            element={
+              <ProtectedRoute user={user}>
+                <WardrobePage user={user} />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/pricing" 
+            element={<PricingPage user={user} onStart={handleStartGenerator} />} 
+          />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };
